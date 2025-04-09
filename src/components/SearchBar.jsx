@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useLocation } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 
 import Box from '@mui/material/Box';
@@ -50,6 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchBar() {
+    const location = useLocation();
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Search>
@@ -57,7 +59,7 @@ export default function SearchBar() {
                     <SearchIcon />
                 </SearchIconWrapper>
                 <StyledInputBase
-                    placeholder="Search photos…"
+                    placeholder={location.pathname === '/' ? 'Search photos...' : 'Search description...'}
                     inputProps={{ 'aria-label': 'search' }}
                 />
             </Search>

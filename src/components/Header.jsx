@@ -1,23 +1,20 @@
-
+import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar"
 import "../styles/Header.css";
 function Header() {
-
     return (
-        <>
-            <header style={headerStyle}>
-                <div style={headerDiv}>
-                    <img src="./assets/logo.png" alt="Logo" className="logo" style={logoStyle} />
-                    <SearchBar style={searchBarStyle} />
-                </div>
-                <div className="header__navbar" style={headerNavBarStyle}>
-                    <ul style={headerNavBarUlStyle}>
-                        <li style={{ marginRight: '61px' }}>ALL</li>
-                        <li>MY PHOTOS</li>
-                    </ul>
-                </div>
-            </header>
-        </>
+        <header style={headerStyle}>
+            <div style={headerDiv}>
+                <img src="./assets/logo.png" alt="Logo" className="logo" style={logoStyle} />
+                <SearchBar style={searchBarStyle} />
+            </div>
+            <div className="header__navbar" style={headerNavBarStyle}>
+                <ul style={headerNavBarUlStyle}>
+                    <li style={{ marginRight: '61px' }}><Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>ALL</Link></li>
+                    <li><Link to="/favorites" style={{ textDecoration: 'none', color: 'inherit' }}>MY PHOTOS</Link></li>
+                </ul>
+            </div>
+        </header>
     )
 }
 
