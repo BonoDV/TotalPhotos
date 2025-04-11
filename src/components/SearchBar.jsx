@@ -1,19 +1,18 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { styled, alpha } from '@mui/material/styles';
-
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useDispatch, useSelector } from 'react-redux';
+import { setInputValue, setLostFocus, searchPhotos, searchRandomPhotos } from '../redux/slices/searchSlice';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: 28,
     backgroundColor: '#ECE6F0',
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
     marginLeft: 0,
     width: '90%',
     height: '55px',
@@ -38,7 +37,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     width: '100%',
     '& .MuiInputBase-input': {
         padding: theme.spacing(2, 1, 1, 0),
-        // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         [theme.breakpoints.up('sm')]: {
@@ -50,10 +48,28 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+const LoadingWrapper = styled('div')({
+    position: 'absolute',
+    right: '10px',
+    top: '50%',
+    transform: 'translateY(-50%)',
+});
+
 export default function SearchBar() {
     const location = useLocation();
+    const dispatch = useDispatch();
+    const { inputValue, loading } = useSelector((state) => state.search);
+
+    const handleBlur = () => {
+        if (location.pathname === '/' && inputValue.trim()) {
+            dispatch(searchPhotos(inputValue));
+        } else if (location.pathname === '/' && inputValue === '') {
+            dispatch(searchRandomPhotos());
+        }
+    };
+
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, position: 'relative' }}>
             <Search>
                 <SearchIconWrapper>
                     <SearchIcon />
@@ -61,7 +77,16 @@ export default function SearchBar() {
                 <StyledInputBase
                     placeholder={location.pathname === '/' ? 'Search photos...' : 'Search description...'}
                     inputProps={{ 'aria-label': 'search' }}
+                    value={inputValue}
+                    onChange={(e) => dispatch(setInputValue(e.target.value))}
+                    onBlur={handleBlur}
+                    disabled={loading}
                 />
+                {loading && (
+                    <LoadingWrapper>
+                        <CircularProgress size={24} color="inherit" />
+                    </LoadingWrapper>
+                )}
             </Search>
         </Box>
     );

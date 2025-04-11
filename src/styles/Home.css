@@ -1,0 +1,17 @@
+body {
+    background-color: #ECE6F0;
+}
+
+.homeDiv {
+    margin-top: 0px;
+
+}
+
+/* Media query para pantallas desktop */
+@media (min-width: 768px) {
+
+    .homeDiv {
+        margin-top: 20px;
+        columns: 5 320px;
+    }
+}
