@@ -1,6 +1,8 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import '../styles/FavIcon.css'; // Asegúrate de que la ruta sea correcta
 const FavIcon = ({ onClick }) => {
+    const location = useLocation();
     return (
         <div className="fav-icon-container">
             <button
@@ -16,7 +18,7 @@ const FavIcon = ({ onClick }) => {
                 }}
             >
                 <img
-                    src="/src/assets/favIcon.svg"
+                    src={location.pathname === "/" ? "/src/assets/favIcon.svg" : "/src/assets/deleteIcon.svg"}
                     alt="Favorito"
                     className="fav-icon"
                     style={{
