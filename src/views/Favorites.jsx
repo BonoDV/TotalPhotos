@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Photo from '../components/Photo';
 import '../styles/Home.css';
+import ModalDeleteConfirmation from '../components/ModalDeleteConfirmation';
 
 function Favorites() {
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [photoToDelete, setPhotoToDelete] = useState(null);
+
+    const handleDeleteClick = (photo) => {
+        setPhotoToDelete(photo);
+        setDeleteModalOpen(true);
+    };
+
+    const confirmDelete = () => {
+        if (photoToDelete) {
+            localStorage.removeItem(`favorite-${photoToDelete.id}`);
+            // Actualiza tu estado para reflejar el cambio
+            setDeleteModalOpen(false);
+            setPhotoToDelete(null);
+        }
+    };
+
     // Obtener todas las fotos favoritas del localStorage
     const getFavoritePhotos = () => {
         const favorites = [];
@@ -76,7 +94,12 @@ function Favorites() {
                         <p>No tienes fotos favoritas aún</p>
                     </div>
                 )}
-            </div>
+            </div><ModalDeleteConfirmation
+                open={deleteModalOpen}
+                onClose={() => setDeleteModalOpen(false)}
+                onConfirm={confirmDelete}
+                photoTitle={photoToDelete?.description}
+            />
         </div>
     );
 }
