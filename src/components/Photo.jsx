@@ -43,6 +43,7 @@ function Photo(props) {
                     className='photo-image'
                 />
                 <FavIcon onClick={handleFavoriteClick} />
+
             </div>
 
             {/* Modal de confirmación */}

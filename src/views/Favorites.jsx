@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Photo from '../components/Photo';
 import '../styles/Home.css';
 import ModalDeleteConfirmation from '../components/ModalDeleteConfirmation';
+import PhotoDescription from '../components/PhotoDescription';
 
 function Favorites() {
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -79,15 +80,24 @@ function Favorites() {
                 {favoritePhotos.length > 0 ? (
                     favoritePhotos.map(photo => (
                         console.log(photo),
-                        <Photo
-                            id={photo.id}
-                            url={photo.url}
-                            description={photo.description}
-                            width={photo.width}
-                            height={photo.height}
-                            likes={photo.likes}
-                            title={photo.description || 'No Description'}
-                        />
+                        <div>
+                            <Photo
+                                id={photo.id}
+                                url={photo.url}
+                                description={photo.description}
+                                width={photo.width}
+                                height={photo.height}
+                                likes={photo.likes}
+                                title={photo.title || 'No Title'}
+
+                            /><PhotoDescription
+                                title={photo.title || 'No Title'}
+                                description={photo.description}
+                                width={photo.width}
+                                height={photo.height}
+                                likes={photo.likes} />
+
+                        </div>
                     ))
                 ) : (
                     <div className="no-favorites">
