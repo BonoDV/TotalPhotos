@@ -1,25 +1,83 @@
-img {
-    max-width: 80%;
+/* Contenedor principal de la galería (Home.js) */
+.homeDiv {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    /* Espacio entre fotos */
+    padding: 20px;
+    justify-items: center;
+    /* Centra horizontalmente los items */
+    align-items: center;
+    /* Centra verticalmente los items */
+    max-width: 1400px;
+    margin: 0 auto;
+    /* Centra la galería en la página */
+}
+
+/* Contenedor principal de la foto */
+.photo-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    /* Cambiado de 80% a 100% para mejor uso del espacio */
+    max-width: 400px;
+    /* Ancho máximo opcional */
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* Margen adicional alrededor de cada foto */
+    transition: all 0.3s ease;
+}
+
+/* Efecto hover en el contenedor para mejor feedback */
+.photo-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Imagen de la foto */
+.photo-image {
+    width: 100%;
     height: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: block;
+    transition: transform 0.3s ease;
 }
 
-.photoDiv {
-    text-align: center;
-    margin-top: 20px;
-    background-color: #ECE6F0;
+/* Efecto hover en la imagen */
+.photo-container:hover .photo-image {
+    transform: scale(1.02);
 }
 
-/* Media query para pantallas desktop */
-@media (min-width: 768px) {
-    img {
-        max-width: 100%;
+/* Contenedor del icono favorito - inicialmente oculto */
+.fav-icon-container {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+    opacity: 0;
+    visibility: hidden;
+}
 
-    }
+/* Mostrar icono al hacer hover en el contenedor de la foto */
+.photo-container:hover .fav-icon-container {
+    opacity: 1;
+    visibility: visible;
+}
 
-    .photoDiv {
-        text-align: left;
+/* Icono favorito */
+.fav-icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
 
-    }
+/* Efecto hover para el icono */
+.fav-icon-container:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 1);
 }
