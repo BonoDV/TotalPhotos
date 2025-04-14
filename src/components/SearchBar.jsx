@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -60,13 +60,20 @@ export default function SearchBar() {
     const dispatch = useDispatch();
     const { inputValue, loading } = useSelector((state) => state.search);
 
+    // Carga inicial de fotos random
+    useEffect(() => {
+        if (location.pathname === '/') {
+            dispatch(searchRandomPhotos());
+        }
+    }, [location.pathname, dispatch]);
+
     const handleBlur = () => {
         if (location.pathname === '/' && inputValue.trim()) {
             dispatch(searchPhotos(inputValue));
         } else if (location.pathname === '/' && inputValue === '') {
             dispatch(searchRandomPhotos());
         }
-    };
+    }
 
     return (
         <Box sx={{ flexGrow: 1, position: 'relative' }}>
