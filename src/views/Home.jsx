@@ -12,13 +12,13 @@ function Home() {
         <div className='homeDiv'>
             {photosData?.results?.map(photo => (
                 <Photo
-                    key={photo.id}
+                    id={photo.id}
                     url={photo.urls?.regular}
                     description={photo.description}
                     width={photo.width}
                     height={photo.height}
                     likes={photo.likes}
-                    title={photo.description || 'Untitled'} />
+                    title={photo.description || 'No Description'} />
             ))}
         </div>
     );

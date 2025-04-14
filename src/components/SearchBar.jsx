@@ -60,7 +60,7 @@ export default function SearchBar() {
     const dispatch = useDispatch();
     const { inputValue, loading } = useSelector((state) => state.search);
 
-    // Carga inicial de fotos random
+    // Carga inicial
     useEffect(() => {
         if (location.pathname === '/') {
             dispatch(searchRandomPhotos());
